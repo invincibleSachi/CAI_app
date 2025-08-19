@@ -10,15 +10,15 @@ import gdown  # pip install gdown
 # --------------------
 @st.cache_resource  # run only once per Streamlit session
 def setup_environment():
-    st.write("⚙️ Setting up environment...")
+    st.write(" Setting up environment...")
 
     # 1. Download from Google Drive
     # Replace with your actual Google Drive link (share link or file ID)
-    google_drive_url = "https://drive.google.com/uc?id=YOUR_FILE_ID&export=download"
-    output = "AssignmentCAI.zip"
-    if not os.path.exists("AssignmentCAI"):
-        gdown.download(google_drive_url, output, quiet=False)
-        subprocess.run(["unzip", "-o", output])
+    google_drive_url = "https://drive.google.com/drive/folders/1oRxyT13I_0dxJMHNYC7tQy1jhSBPS_IM"
+    gdown.download_folder(google_drive_url, output="AssignmentCAI", quiet=False, use_cookies=False)
+    # if not os.path.exists("AssignmentCAI"):
+    #     gdown.download(google_drive_url, output, quiet=False)
+    #     subprocess.run(["unzip", "-o", output])
 
     # 2. Install dependencies
     req_path = "AssignmentCAI/requirements.txt"

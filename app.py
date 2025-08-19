@@ -12,23 +12,27 @@ import gdown  # pip install gdown
 def setup_environment():
     st.write(" Setting up environment...")
 
-    # 1. Download from Google Drive
-    # Replace with your actual Google Drive link (share link or file ID)
+    # 1. Download folder from Google Drive
     google_drive_url = "https://drive.google.com/drive/folders/1oRxyT13I_0dxJMHNYC7tQy1jhSBPS_IM"
     gdown.download_folder(google_drive_url, output="AssignmentCAI", quiet=False, use_cookies=False)
-    # if not os.path.exists("AssignmentCAI"):
-    #     gdown.download(google_drive_url, output, quiet=False)
-    #     subprocess.run(["unzip", "-o", output])
 
     # 2. Install dependencies
     req_path = "AssignmentCAI/requirements.txt"
     if os.path.exists(req_path):
-        subprocess.run(["pip", "install", "-r", req_path])
+        subprocess.run(
+            ["python", "-m", "pip", "install", "-r", req_path],
+            check=True
+        )
 
     # 3. Start Flask backend in background
-    flask_file = "AssignmentCAI/main/Flask.py"
+    flask_file = os.path.join("AssignmentCAI", "main", "Flask.py")
     if os.path.exists(flask_file):
-        subprocess.Popen(["python", flask_file], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.Popen(
+            ["python", "Flask.py"],
+            cwd="AssignmentCAI/main",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
 
     return True
 
